@@ -1,0 +1,15 @@
+<mat-toolbar color="primary" class="header">
+  <div>
+    <div class="btn-container">
+      <button type="button" mat-icon-button color="gray" (click)="hideMenu = !hideMenu">
+        <button type="button" mat-icon-button color="gray" (click)="toggle()" *ngIf="hideMenu">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <button mat-mini-fab color="gray" (click)="toggle()" *ngIf="!hideMenu">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </button>
+    </div>
+  </div>
+  <span><a routerLink="/books">Book Store</a></span>
+</mat-toolbar>
