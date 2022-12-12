@@ -1,5 +1,5 @@
 .example-container {
-  width: 400px;
+  min-width: 300px;
   max-width: 100%;
   margin: 0 25px 25px 0;
   display: inline-block;
@@ -51,4 +51,31 @@
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.add-button {
+  display: inline-block;
+  margin-left: 2em;
+}
+
+.input {
+  font-size: 26px;
+}
+
+.example-form-field {
+  margin-bottom: 2em;
+}
+
+.huy {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.mat-card {
+  margin: 0 2em;
+}
+
+.container-button-add {
+  margin-top: 2em;
 }
