@@ -1,3 +1,5 @@
+<!--<div *ngFor="let a of huy">{{a.title}}</div>-->
+
 <div cdkDropListGroup class="huy">
   <mat-card class="mat-card">
 
@@ -12,7 +14,7 @@
         [cdkDropListData]="todo"
         class="example-list"
         (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of todo" cdkDrag>{{ item }}
+        <div class="example-box" *ngFor="let item of huy" cdkDrag>{{ item.title }}
           <button
             mat-fab color="warn"
             aria-label="Example icon button with a delete icon"
@@ -33,7 +35,7 @@
       </button>
     </mat-form-field>
     <button mat-raised-button color="primary"
-            (click)="addItemsInTodo()"
+            (click)="addItemsInTodo(itemTodo)"
             [disabled]="!itemTodo"
             class="add-button"
     >Add</button>

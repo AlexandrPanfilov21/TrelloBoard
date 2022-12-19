@@ -1,17 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { BoardService } from '../../services/board.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-table',
   templateUrl: './main.table.component.html',
   styleUrls: ['./main.table.component.scss']
 })
-export class MainTableComponent {
+export class MainTableComponent implements OnInit{
 
   public todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
   public done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
   public inProgress: string[] = [];
   public review: string[] = [];
+  public huy: any;
+  public pizda: any;
 
   public itemTodo!: string;
   public itemInProgress!: string;
@@ -22,7 +26,23 @@ export class MainTableComponent {
   public reviewH2: string = 'Review';
   public doneH2: string = 'Done';
 
-  drop (event: CdkDragDrop<string[]>): void {
+  public constructor(
+    public boardService: BoardService,
+  ) { }
+
+  ngOnInit() {
+    this.getItems();
+    // this.getItemsFromArray();
+  }
+
+  public getItemsFromArray() {
+    // for (let items of this.huy){
+    //   this.pizda = items.title;
+    //   console.log(this.pizda);
+    // }
+  }
+
+  public drop (event: CdkDragDrop<string[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -35,27 +55,28 @@ export class MainTableComponent {
     }
   }
 
-  addItemsInTodo(): void {
-    this.todo.push(this.itemTodo)
-    this.itemTodo = '';
+  public addItemsInTodo(title: string): void {
+    title = this.itemTodo;
+    this.boardService.addBoard({title: title, items_id: 1})
+      .subscribe()
   }
 
-  addItemsInProgress(): void {
+  public addItemsInProgress(): void {
     this.inProgress.push(this.itemInProgress)
     this.itemInProgress = '';
   }
 
-  addItemsInReview(): void {
+  public addItemsInReview(): void {
     this.review.push(this.itemReview)
     this.itemReview = '';
   }
 
-  addItemsInDone(): void {
+  public addItemsInDone(): void {
     this.done.push(this.itemDone)
     this.itemDone = '';
   }
 
-  deleteItemsTodo(value: string): void {
+  public deleteItemsTodo(value: string): void {
     const index = this.todo.indexOf(value);
 
     if (index >= 0) {
@@ -63,7 +84,7 @@ export class MainTableComponent {
     }
   }
 
-  deleteItemsInProgress(value: string): void {
+  public deleteItemsInProgress(value: string): void {
     const index = this.inProgress.indexOf(value);
 
     if (index >= 0) {
@@ -71,7 +92,7 @@ export class MainTableComponent {
     }
   }
 
-  deleteItemsReview(value: string): void {
+  public deleteItemsReview(value: string): void {
     const index = this.review.indexOf(value);
 
     if (index >= 0) {
@@ -79,11 +100,19 @@ export class MainTableComponent {
     }
   }
 
-  deleteItemsDone(value: string): void {
+  public deleteItemsDone(value: string): void {
     const index = this.done.indexOf(value);
 
     if (index >= 0) {
       this.done.splice(index, 1);
     }
+  }
+
+  public getItems(): void {
+    this.boardService.getBoard()
+      .subscribe((huy: any) => {
+        this.huy = huy.items;
+        console.log(this.huy);
+      })
   }
 }
