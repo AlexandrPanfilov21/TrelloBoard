@@ -10,12 +10,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MainTableComponent implements OnInit{
 
-  public todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
-  public done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
-  public inProgress: string[] = [];
-  public review: string[] = [];
+  public todo: any[] = [];
+  public done: any[] = [];
+  public inProgress: any = [];
+  public review: any[] = [];
   public huy: any;
-  public pizda: any;
 
   public itemTodo!: string;
   public itemInProgress!: string;
@@ -31,15 +30,6 @@ export class MainTableComponent implements OnInit{
   ) { }
 
   ngOnInit() {
-    this.getItems();
-    // this.getItemsFromArray();
-  }
-
-  public getItemsFromArray() {
-    // for (let items of this.huy){
-    //   this.pizda = items.title;
-    //   console.log(this.pizda);
-    // }
   }
 
   public drop (event: CdkDragDrop<string[]>): void {
@@ -53,12 +43,15 @@ export class MainTableComponent implements OnInit{
         event.currentIndex,
       );
     }
+    console.log(this.inProgress);
   }
 
   public addItemsInTodo(title: string): void {
     title = this.itemTodo;
     this.boardService.addBoard({title: title, items_id: 1})
       .subscribe()
+
+    this.itemTodo = '';
   }
 
   public addItemsInProgress(): void {
@@ -72,16 +65,20 @@ export class MainTableComponent implements OnInit{
   }
 
   public addItemsInDone(): void {
-    this.done.push(this.itemDone)
-    this.itemDone = '';
+    // this.done.push(this.itemDone)
+    // this.itemDone = '';
   }
 
-  public deleteItemsTodo(value: string): void {
-    const index = this.todo.indexOf(value);
-
-    if (index >= 0) {
-      this.todo.splice(index, 1);
+  public deleteItemsTodo(value: any): void {
+    let id_: string[] = [];
+    const index = id_.indexOf(value);
+    for (let item of this.huy){
+      id_.push(item.id);
     }
+      id_.splice(index, 1);
+      this.boardService.deleteBoard(value.id)
+        .subscribe()
+    console.log(value.id);
   }
 
   public deleteItemsInProgress(value: string): void {
@@ -89,6 +86,7 @@ export class MainTableComponent implements OnInit{
 
     if (index >= 0) {
       this.inProgress.splice(index, 1);
+      console.log(index);
     }
   }
 
@@ -113,6 +111,9 @@ export class MainTableComponent implements OnInit{
       .subscribe((huy: any) => {
         this.huy = huy.items;
         console.log(this.huy);
+        for(let item of this.huy){
+          this.todo.push(item.title)
+        }
       })
   }
 }
