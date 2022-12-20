@@ -1,0 +1,45 @@
+<form [formGroup]="registerForm" (ngSubmit)="loginUser()">
+  <div class="container">
+    <h1>Log In</h1>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your Username</mat-label>
+      <input matInput type="text" formControlName="username">
+    </mat-form-field>
+    <div *ngIf="username.invalid && (username.dirty || username.touched)" class="invalid">
+      <div *ngIf="username.errors?.['required']">
+        Username is required.
+      </div>
+      <div *ngIf="username.errors?.['minlength']">
+        Username must be at least 5 characters long.
+      </div>
+    </div>
+    <br>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid">
+      <div *ngIf="password.errors?.['required']">
+        Password is required.
+      </div>
+      <div *ngIf="username.errors?.['minlength']">
+        Password must be at least 8 characters long.
+      </div>
+    </div>
+    <br>
+    <div><a routerLink="/register">Зарегистрироваться</a></div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="registerForm.invalid"
+      class="button_reg"
+      (click)="goBack()"
+    >Log In</button>
+  </div>
+</form>

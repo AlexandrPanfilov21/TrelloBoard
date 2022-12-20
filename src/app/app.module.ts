@@ -7,10 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from './layout/layout.module';
 import { TableModule } from './table/table.module';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     LayoutModule,
     TableModule,
     HttpClientModule,
+    LoginModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -17,9 +17,7 @@ export class MainTableComponent implements OnInit{
   public huy: any;
 
   public itemTodo!: string;
-  public itemInProgress!: string;
-  public itemReview!: string;
-  public itemDone!: string;
+
   public todoH2: string = 'To do';
   public inProgressH2: string = 'In Progress';
   public reviewH2: string = 'Review';
@@ -43,30 +41,14 @@ export class MainTableComponent implements OnInit{
         event.currentIndex,
       );
     }
-    console.log(this.inProgress);
   }
 
   public addItemsInTodo(title: string): void {
     title = this.itemTodo;
-    this.boardService.addBoard({title: title, items_id: 1})
+    this.boardService.addBoard(title,1, 1)
       .subscribe()
 
     this.itemTodo = '';
-  }
-
-  public addItemsInProgress(): void {
-    this.inProgress.push(this.itemInProgress)
-    this.itemInProgress = '';
-  }
-
-  public addItemsInReview(): void {
-    this.review.push(this.itemReview)
-    this.itemReview = '';
-  }
-
-  public addItemsInDone(): void {
-    // this.done.push(this.itemDone)
-    // this.itemDone = '';
   }
 
   public deleteItemsTodo(value: any): void {
@@ -110,7 +92,6 @@ export class MainTableComponent implements OnInit{
     this.boardService.getBoard()
       .subscribe((huy: any) => {
         this.huy = huy.items;
-        console.log(this.huy);
         for(let item of this.huy){
           this.todo.push(item.title)
         }

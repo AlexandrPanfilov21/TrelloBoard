@@ -12,15 +12,15 @@ export class BoardService {
   ) { }
 
   public getBoard(): Observable<any> {
-    return this._http.get<any>('api/board/');
+    return this._http.get<any>('api/board/1');
   }
 
   public deleteBoard(id: any): Observable<any> {
     return this._http.delete<any>(`api/board/${id}`);
   }
 
-  public addBoard(title: any): Observable<any> {
+  public addBoard(title: any, user_id: any, items_id: any): Observable<any> {
 
-    return this._http.post<any>('/api/board/', title)
+    return this._http.post<any>(`/api/board/`, {title: title, items_id: items_id, user_id: user_id})
   }
 }

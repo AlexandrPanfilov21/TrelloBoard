@@ -10,6 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { BoardService } from './services/board.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterOutlet } from '@angular/router';
+import { AppRoutingModule } from '../app-routing.module';
 
 
 @NgModule({
@@ -26,6 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatCardModule,
     HttpClientModule,
+    RouterOutlet,
+    AppRoutingModule,
   ],
   exports: [
     MainTableComponent,
